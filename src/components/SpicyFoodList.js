@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { spicyFoods, getNewRandomSpicyFood } from "../data";
 
@@ -6,7 +7,8 @@ function SpicyFoodList() {
 
   function handleAddFood() {
     const newFood = getNewRandomSpicyFood();
-    console.log(newFood);
+    const newFoodArray=[...foods, newFood];
+    console.log(newFoodArray);
   }
 
   const foodList = foods.map((food) => (
@@ -15,10 +17,24 @@ function SpicyFoodList() {
     </li>
   ));
 
+  function handleLiClick(id) {
+    const newFoodArray = foods.map((food) => {
+      if (food.id === id) {
+        return {
+          ...food,
+          heatLevel: food.heatLevel + 1,
+        };
+      } else {
+        return food;
+      }
+    });
+    setFoods(newFoodArray);
+  }
+
   return (
     <div>
       <button onClick={handleAddFood}>Add New Food</button>
-      <ul>{foodList}</ul>
+      <ul >{foodList}</ul>
     </div>
   );
 }
